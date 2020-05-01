@@ -1,0 +1,60 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Instagram plugin for Craft CMS 3.x
+ *
+ * Instagram Settings.twig
+ *
+ * @author    Leevi Graham
+ * @copyright Copyright (c) 2020 Leevi Graham
+ * @link      https://newism.com.au
+ * @package   Instagram
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("newism\\instagram\\assetbundles\\instagram\\InstagramAsset") %}
+
+<div style="max-width: 600px">
+<p>
+    Follow steps 1-3 in the Facebook
+    <strong><a href="https://developers.facebook.com/docs/instagram-basic-display-api/getting-started">Getting Started Documentation</a></strong>
+    to create a Facebook App. Use the urls below for the '<code>OAuth Redirect URI</code>' &amp; '<code>Deauthorize Callback URL</code>'.
+</p
+><p>
+    Once your app has been created enter the '<code>App Id</code>' and '<code>App Secret</code>' below.
+</p>
+</div>
+
+{{ forms.textField({
+    label: 'OAuth Redirect URI',
+    id: 'oauthRedirectUri',
+    name: 'oauthRedirectUri',
+    readonly: true,
+    value: cpUrl('instagram/connect') })
+}}
+
+{{ forms.textField({
+    label: 'Deauthorize Callback URL',
+    id: 'deauthorizeCallbackUrl',
+    readonly: true,
+    value: cpUrl('instagram/deauthorize') })
+}}
+
+{{ forms.autosuggestField({
+    label: 'App Id',
+    id: 'clientId',
+    name: 'clientId',
+    value: settings['clientId'],
+    suggestEnvVars: true
+}) }}
+
+{{ forms.autosuggestField({
+    label: 'App Secret',
+    id: 'clientSecret',
+    name: 'clientSecret',
+    value: settings['clientSecret'],
+    suggestEnvVars: true
+}) }}
